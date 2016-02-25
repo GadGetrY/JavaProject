@@ -33,6 +33,8 @@ public enum QueryHandler {
 		
 		return found;
 	}
+
+	
 	
 	public IBid findBidByIdScenario(
 			GenericDao<IBid> jpaBidDao,
@@ -85,7 +87,7 @@ public enum QueryHandler {
 		
 		if(found != null) {
 			found.getName().setFirstName("Jury");
-			found.getName().setLastName("Doiﬂling");
+			found.getName().setLastName("Doi√üling");
 			found.setEmail("jury@gmail.com");
 			found.setPassword("jury1234");
 			found.setUsername("juryUser");
@@ -107,7 +109,7 @@ public enum QueryHandler {
 				QueryHandler.INSTANCE.findAuctionItemByIdScenario(jpaAuctionItemDao, em);
 		
 		if(found != null) {
-			found.setDescription("Gutes Ger‰t!");
+			found.setDescription("Gutes Ger√§t!");
 			
 					
 		}
@@ -206,6 +208,32 @@ public enum QueryHandler {
 		tx.commit();
 		
 		return found;
+	}
+	
+	public void addAuctionItem(
+			GenericDao<IAuctionItem>jpaAuctionItemDao,
+			EntityManager em){
+		
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		ObjectFactory.INSTANCE.alex().add(ObjectFactory.INSTANCE.tabletItem());
+		
+		tx.commit();
+		
+	}
+	
+	public void removeAuctionItem(
+			GenericDao<IAuctionUser> jpaAuctionUserDao,
+			EntityManager em) {
+		
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		ObjectFactory.INSTANCE.alex().remove(ObjectFactory.INSTANCE.tabletItem());
+		
+		tx.commit();
+		
 	}
 	
 	public static void main(String[] args) {
