@@ -10,13 +10,13 @@ import org.eclipse.persistence.annotations.TypeConverter;
 
 @Entity
 @Table(name = "AUCTIONITEM")
-/*@NamedQueries({
+@NamedQueries({
 	@NamedQuery(
 			name = "auctionitem.findAuctionItemUsingSellerUsername",
 			query = "SELECT i FROM AuctionItem i "
 					+ "WHERE i.seller.username = :username"
 	)
-})*/
+})
 public class AuctionItem implements IAuctionItem {
 	
 	@Id
@@ -25,7 +25,7 @@ public class AuctionItem implements IAuctionItem {
 	@Column(name = "AUCTIONITEMID", columnDefinition = "NUMBER(4, 0)")
 	private int auctionItemId = 0;
 	
-	@ManyToOne(targetEntity = Bid.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Bid.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "BID", columnDefinition = "NUMBER(4, 0)")
 	private List<IBid> bids = new ArrayList<>();
 	
@@ -38,7 +38,8 @@ public class AuctionItem implements IAuctionItem {
 			objectType = java.sql.Date.class)
 	private LocalDate ends;
 
-	@JoinColumn(name = "SELLER", columnDefinition = "NUMBER(4, 0)")
+	@JoinColumn(name = "SELLER", columnDefinition = "NUMBER(4, 0) CONSTRAINT AuctionItem_Seller_NN NOT NULL")
+	@OneToOne(targetEntity = Bid.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private IAuctionUser seller;
 	
 	@JoinColumn(name = "SUCCESSFULBID", columnDefinition = "NUMBER(4, 0)")
@@ -127,6 +128,7 @@ public class AuctionItem implements IAuctionItem {
 		return result;
 	}
 
+	
 	public boolean remove(IBid bid) {
 		boolean answer = false;
 		if (this.getBids().contains(bid)) {

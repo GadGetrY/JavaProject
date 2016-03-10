@@ -14,16 +14,16 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(
 			name = "auctionuser.findPersonsUsingUsername",
-			query = "SELECT u FROM Auctionuser u "
-					+ "WHERE p.Username = :username"
+			query = "SELECT u FROM AuctionUser u "
+					+ "WHERE u.username = :username"
 	)
 })
 public class AuctionUser implements IAuctionUser {
 	
-	@ManyToMany(targetEntity = AuctionItem.class, mappedBy = "auctionuser")
+	@OneToMany(targetEntity = AuctionItem.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private List<IAuctionItem> auctions = new ArrayList<>();
 	
-	@ManyToMany(targetEntity = Bid.class, mappedBy = "auctionuser")
+	@OneToMany(targetEntity = Bid.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private List<IBid> bids = new ArrayList<>();
 	
 	@Id
@@ -65,8 +65,6 @@ public class AuctionUser implements IAuctionUser {
 		return this.getBids().add(bid);
 	}
 	
-	
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

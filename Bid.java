@@ -18,8 +18,8 @@ public class Bid implements IBid {
 	@Column(name = "AMOUNT", columnDefinition = "NUMBER(6, 2) CONSTRAINT Bid_Amount_NN NOT NULL")
 	private float amount;
 
-	@ManyToOne(targetEntity = AuctionUser.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name = "BIDDER", columnDefinition = "NUMBER(4, 0) CONSTRAINT Bid_Bidder_NN NOT NULL")
+	@OneToOne(targetEntity = AuctionUser.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "BIDDER", columnDefinition = "NUMBER(4, 0)")
 	private IAuctionUser bidder;
 	
 	@TypeConverter(
@@ -34,8 +34,8 @@ public class Bid implements IBid {
 	@Column(name = "BIDID", columnDefinition = "NUMBER(4, 0)")
 	protected int id;
 
-	@ManyToOne(targetEntity = AuctionItem.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name = "ITEM", columnDefinition = "NUMBER(4, 0) CONSTRAINT Bid_Item_NN NOT NULL")
+	@OneToOne(targetEntity = AuctionItem.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ITEM", columnDefinition = "NUMBER(4, 0)")
 	private IAuctionItem item;
 
 	public Bid() {
