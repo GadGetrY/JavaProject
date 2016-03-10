@@ -32,31 +32,25 @@ public enum ObjectFactory {
 				.setPassword("alex1234")
 				.setEmail("alex@gmail.com");
 		
-		alex.add(ObjectFactory.INSTANCE.phoneItem());
-		
 		return alex;
 	}
 	
 	public IBid danielsBids(){
 		
-		IAuctionUser daniel = ObjectFactory.INSTANCE.daniel();
 		IBid bid = new Bid()
 				.setAmount(50)
-				.setBidder(daniel)
+				.setBidder(ObjectFactory.INSTANCE.daniel())
 				.setDatetime(LocalDate.of(2016, 01, 25))
 				.setItem(ObjectFactory.INSTANCE.phoneItem());
-			 
-		daniel.add(ObjectFactory.INSTANCE.tabletItem());
 			
 		return bid;
 	};
 	
 	public IBid alexBids(){
 		
-		IAuctionUser alex = ObjectFactory.INSTANCE.alex();
 		IBid bid = new Bid()
 				.setAmount(75)
-				.setBidder(alex)
+				.setBidder(ObjectFactory.INSTANCE.alex())
 				.setDatetime(LocalDate.of(2016, 01, 25))
 				.setItem(ObjectFactory.INSTANCE.tabletItem());
 			

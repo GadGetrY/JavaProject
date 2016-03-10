@@ -46,12 +46,14 @@ public final class BidDAO implements GenericDao<IBid> {
 	}
 
 	@Override
-	public void persist(IBid entity, EntityManager em) {
+	public IBid persist(IBid entity, EntityManager em) {
 		em.persist(entity);
+		return entity;
 	}
 
 	@Override
-	public void remove(IBid entity, EntityManager em) {
+	public IBid remove(IBid entity, EntityManager em) {
 		em.remove(entity);
+		return null;
 	}
 }

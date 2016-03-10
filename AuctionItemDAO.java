@@ -27,7 +27,7 @@ public final class AuctionItemDAO implements GenericDao<IAuctionItem> {
 	public IAuctionItem find(IAuctionItem entity, EntityManager em) {
 		IAuctionItem found = null;
 		
-		List<IAuctionItem> auctionItems = em.createQuery("auctionitem.findItemsUsingAuctionItemId")
+		List<IAuctionItem> auctionItems = em.createQuery("auctionitem.findAuctionItemUsingSellerUsername")
 				.setParameter("description", entity.getDescription())
 				.setParameter("ends", entity.getEnds())
 				.setParameter("seller", entity.getSeller())
@@ -47,13 +47,15 @@ public final class AuctionItemDAO implements GenericDao<IAuctionItem> {
 	}
 
 	@Override
-	public void persist(IAuctionItem entity, EntityManager em) {
+	public IAuctionItem persist(IAuctionItem entity, EntityManager em) {
 		em.persist(entity);
+		return entity;
 	}
 
 	@Override
-	public void remove(IAuctionItem entity, EntityManager em) {
+	public IAuctionItem remove(IAuctionItem entity, EntityManager em) {
 		em.remove(entity);
+		return null;
 	}
 
 }
